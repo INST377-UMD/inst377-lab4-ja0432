@@ -3,101 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-
-
-    <title>INST377 - Form Validation</title>
+    <title>INST377 Lab 4</title>
+    <style>
+        body {
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            gap: 20px; /* Space between the grid items */
+            width: 80%; /* Adjust the width as needed */
+            margin: 20px 0;
+        }
+        .section {
+            border: 10px dotted #000;
+            padding: 20px;
+            background-color: pink;
+        }
+    </style>
 </head>
-<style>
-    .main-container {
-    border: 2px solid black;
-    width: 100%;
-    height: 100%;
-    margin-bottom: 5px;
-}
-.content-box {
-  background-color: aliceblue;
-  color: black;
-  border: 2px solid black;
-  padding: 5px;
-  border-radius: 15px;
-  margin: 5px;
-}
-
-
-
- .col1{
-    
-    display:inline-block
-}
-
-.col3 {
-    display: inline-block;
-}
-
-
-
-</style>
 <body>
-    <div class="two-col">
-    <div class="col1">
-        <label for="field1">Field One:</label>
-        <input id="field1" name="field1" type="text">
-    </div>
-    <div class="col1">
-        <label for="field2">Field Two:</label>
-        <input id="field2" name="field2" type="text">
-    </div>
-    <br>
-    <div class="col3">
-        <label for="field3">Field Three:</label>
-        <input id="field3" name="field3" type="text">
-    </div>
+    <h1 id="main-heading">INST377 Lab4</h1>
 
-    <div class="col3">
-        <label for="field4">Field Four:</label>
-        <input id="field4" name="field4" type="text">
-    </div>
-</div>
-   <!-- Main text Area 
-    <div class="main-container">
-        <h1>Announcements</h1>
-        <div class="content-area">
-            <div class="content-box">
-                <h1>This is content box 1</h1>
-                <p>Lorem ipsum....</p>
-            </div>
-            <div class="content-box">
-                <h1>This is content box 2</h1>
-                <p>Lorem ipsum....</p>
-            </div>
-            <div class="content-box">
-                <h1>This is content box 3</h1>
-                <p>Lorem ipsum....</p>
-            </div>
+    <div class="container">
+        <div class="section" id="greeting-section">
+            <h2>Greeting Section</h2>
+            <form id="alert-me-form" onsubmit="submitName(event)">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+                <button type="submit">Alert Me</button>
+            </form>
         </div>
--->
-    <!-- Javascript Code -->
-    <script type="text/javascript">
-        function formValidation() {
-            console.log('Validating user input:', document.contactForm.firstName.value)
-            const validationRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-            if (document.contactForm.firstName.value.trim() == "") { // Remove any whitespace and check if empty
-                document.body.style.backgroundColor = 'orange'
-                alert('Enter a valid first name!')
 
-                return false;
+
+        <div class="section" id="change-color-section">
+            <h2>Change Color Section</h2>
+            <button onclick="changeColor()">Change Color</button>
+        </div>
+
+        <div class="section" id="text-tester-section">
+            <h2>Text Tester Section</h2>
+            <form id="text-tester-form">
+                <label for="text">Text:</label>
+                <input type="text" id="text" required>
+                <button type="button" onclick="validateText()">Validate Text</button>
+            </form>
+        </div>
+
+        <div class="section" id="add-text-section">
+            <h2>Add Text Section</h2>
+            <button onclick="addText()" >Add Text</button>
+        </div>
+
+        
+    </div>
+
+    <script>
+        let isBlue = true; 
+        let submittedName = ''; 
+        function submitName(event) {
+            event.preventDefault(); 
+            submittedName = document.getElementById('name').value; 
+            document.getElementById('name').value = ''; 
+            
+            // Alert with the submitted name
+            if (submittedName) {
+                alert(`Hi ${submittedName}!`);
             }
+        }
 
-            if (validationRegex.test(document.contactForm.firstName.value)) {
-                document.body.style.backgroundColor = 'red';
-                alert('How about..... nah :(')
+        function changeColor() {
+       
+        if (isBlue === true) {
+          document.body.style.backgroundColor = '#C8A2C8';
+        } else {
+          document.body.style.backgroundColor = '#ADD8E6';
+        }
+        isBlue = !isBlue; 
 
-                return false;
+        }
+
+        function validateText() {
+            const text = document.getElementById('text').value;
+            const validation = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+            if (validation.test(text)) {
+                alert("There is a special character!");
+            } else {
+                alert("Text is valid!");
             }
+        }
 
+        function addText() {
+            const heading = document.getElementById('main-heading');
+            heading.textContent += " Yippie";
         }
     </script>
 </body>
-
 </html>
